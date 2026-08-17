@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NeuroFusion AI – PET + MRI Brain Image Fusion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Intro Animation -->
+    <section id="intro">
+        <div class="intro-container">
+            <img src="assets/brain_intro.jpg" alt="Brain illustration" class="brain-image">
+            <div class="intro-title">
+                <h1>PET + MRI</h1>
+                <h2>AI Brain Image Fusion</h2>
+            </div>
+            <div class="loading-indicator"></div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard (hidden initially) -->
+    <section id="dashboard" class="hidden">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="logo">🧠</div>
+            <h1 class="site-name">NeuroFusion AI</h1>
+            <nav class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Fusion</a>
+                <a href="#">Results</a>
+                <a href="#">About</a>
+            </nav>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-text">
+                <h2>AI‑Powered PET + MRI Brain Image Fusion</h2>
+                <p>Combine metabolic PET data with high‑resolution MRI structure to reveal detailed brain activity.</p>
+                <button id="open-upload" class="cta-btn">Upload &amp; Fuse Images</button>
+            </div>
+            <div class="hero-illustration">
+                <img src="assets/brain_intro.jpg" alt="Brain illustration" class="hero-brain">
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section" id="upload-section">
+            <h3>Upload Images</h3>
+            <div class="uploads">
+                <div class="upload-box" data-type="mri">
+                    <p>Drag &amp; drop MRI (NIfTI) here</p>
+                    <input type="file" accept=".nii,.nii.gz" hidden>
+                </div>
+                <div class="upload-box" data-type="pet">
+                    <p>Drag &amp; drop PET (NIfTI) here</p>
+                    <input type="file" accept=".nii,.nii.gz" hidden>
+                </div>
+            </div>
+            <button id="fuse-btn" class="cta-btn disabled" disabled>✨ Fuse Images</button>
+        </section>
+
+        <!-- Fusion Visualization -->
+        <section class="fusion-visualization hidden" id="fusion-visualization">
+            <h3>Fusion Result</h3>
+            <div class="viewer-grid">
+                <div class="viewer-card"><canvas id="view-mri"></canvas></div>
+                <div class="viewer-card"><canvas id="view-pet"></canvas></div>
+                <div class="viewer-card"><canvas id="view-registered"></canvas></div>
+                <div class="viewer-card"><canvas id="view-fused"></canvas></div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section class="analysis-section hidden" id="analysis-section">
+            <h3>Fusion Metrics</h3>
+            <div class="metrics-grid">
+                <div class="metric-card"><span class="metric-value" id="ssim">–</span><p>SSIM</p></div>
+                <div class="metric-card"><span class="metric-value" id="entropy">–</span><p>Entropy</p></div>
+                <div class="metric-card"><span class="metric-value" id="mi">–</span><p>Mutual Information</p></div>
+                <div class="metric-card"><span class="metric-value" id="psnr">–</span><p>PSNR</p></div>
+                <div class="metric-card"><span class="metric-value" id="time">–</span><p>Processing Time</p></div>
+            </div>
+        </section>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
