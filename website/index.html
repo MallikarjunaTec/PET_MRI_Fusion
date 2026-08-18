@@ -1,91 +1,613 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <title>NeuroFusion AI – PET + MRI Brain Image Fusion</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PET–MRI Brain Image Fusion | Multimodal Brain Imaging</title>
+  <meta name="description" content="Premium PET–MRI brain image fusion workstation. Upload MRI and PET NIfTI scans for registration, fusion, and quantitative analysis.">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Chart.js for comparison charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <!-- Intro Animation -->
-    <section id="intro">
-        <div class="intro-container">
-            <img src="assets/brain_intro.jpg" alt="Brain illustration" class="brain-image">
-            <div class="intro-title">
-                <h1>PET + MRI</h1>
-                <h2>AI Brain Image Fusion</h2>
-            </div>
-            <div class="loading-indicator"></div>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="#home" class="navbar__logo">
+        <div class="navbar__logo-box">
+          <span class="navbar__logo-icon">🧠</span>
         </div>
-    </section>
+        <span class="navbar__logo-text">PET–MRI Fusion</span>
+      </a>
 
-    <!-- Main Dashboard (hidden initially) -->
-    <section id="dashboard" class="hidden">
-        <!-- Header -->
-        <header class="site-header">
-            <div class="logo">🧠</div>
-            <h1 class="site-name">NeuroFusion AI</h1>
-            <nav class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Fusion</a>
-                <a href="#">Results</a>
-                <a href="#">About</a>
-            </nav>
-        </header>
+      <ul class="navbar__nav" id="navMenu">
+        <li><a class="navbar__link active" href="#home" data-nav="home">Home</a></li>
+        <li><a class="navbar__link" href="#workspace" data-nav="workspace">Fusion Workspace</a></li>
+        <li><a class="navbar__link" href="#results" data-nav="results">Results</a></li>
+        <li><a class="navbar__link" href="#about" data-nav="about">About</a></li>
+      </ul>
 
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-text">
-                <h2>AI‑Powered PET + MRI Brain Image Fusion</h2>
-                <p>Combine metabolic PET data with high‑resolution MRI structure to reveal detailed brain activity.</p>
-                <button id="open-upload" class="cta-btn">Upload &amp; Fuse Images</button>
+      <div class="navbar__actions">
+        <!-- Theme Toggle Switch -->
+        <label class="theme-switch" aria-label="Toggle theme">
+          <input type="checkbox" id="themeToggleCheckbox">
+          <span class="theme-slider">
+            <span class="theme-icon sun">☀️</span>
+            <span class="theme-icon moon">🌙</span>
+          </span>
+        </label>
+        
+        <button class="navbar__btn help-btn" id="helpBtn" data-tooltip="Help" aria-label="Help">❓</button>
+        <button class="navbar__menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="home">
+    <div class="container hero__container">
+      <div class="hero__content animate-fade-in-up">
+        <div class="hero__badge">
+          <span class="hero__badge-icon">🔬</span> Medical Imaging Research Tool
+        </div>
+        <h1 class="hero__title">
+          <span class="hero__title-accent">PET–MRI</span> <span class="hero__title-dark">Brain<br>Image Fusion</span>
+        </h1>
+        <p class="hero__subtitle">Multimodal brain imaging registration, fusion and quantitative analysis</p>
+        <p class="hero__description">
+          MRI provides high-resolution structural brain anatomy, while PET reveals functional and metabolic activity. 
+          This tool fuses both modalities into a single image that combines the best of structural and functional information.
+        </p>
+        <div class="hero__actions">
+          <a href="#workspace" class="btn btn--primary btn--lg" id="startFusionBtn">
+            🚀 Start Fusion
+          </a>
+          <a href="#about" class="btn btn--outline btn--lg">
+            📖 Learn More
+          </a>
+        </div>
+      </div>
+      
+      <!-- Premium 3D Glass Brain Visual (Floating, no black box) -->
+      <div class="hero__visual animate-fade-in-up" style="animation-delay: 0.2s;">
+        <div class="hero-image-scene">
+          <div class="hero-image-glow"></div>
+          <img src="images/hero-brain-light.jpg?v=1" alt="3D Glass Brain - PET MRI Fusion" class="hero-image-element hero-image-light">
+          <img src="images/hero-brain-dark.png?v=1" alt="3D Glass Brain Dark - PET MRI Fusion" class="hero-image-element hero-image-dark">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FUSION WORKSPACE
+       ============================================================ -->
+  <section class="section workspace" id="workspace">
+    <div class="container">
+      <h2 class="section-title">Fusion Workspace</h2>
+      <p class="section-subtitle">Upload PET and MRI brain scans to begin multimodal image fusion.</p>
+
+      <!-- Upload Grid -->
+      <div class="upload-grid">
+
+        <!-- MRI Upload Panel -->
+        <div class="glass-card upload-panel" id="mriPanel">
+          <div class="upload-panel__header">
+            <div class="upload-panel__icon upload-panel__icon--mri">🧲</div>
+            <div>
+              <div class="upload-panel__title">MRI Brain Scan</div>
+              <div class="upload-panel__format">Accepted: .nii, .nii.gz</div>
             </div>
-            <div class="hero-illustration">
-                <img src="assets/brain_intro.jpg" alt="Brain illustration" class="hero-brain">
-            </div>
-        </section>
+          </div>
 
-        <!-- Upload Section -->
-        <section class="upload-section" id="upload-section">
-            <h3>Upload Images</h3>
-            <div class="uploads">
-                <div class="upload-box" data-type="mri">
-                    <p>Drag &amp; drop MRI (NIfTI) here</p>
-                    <input type="file" accept=".nii,.nii.gz" hidden>
+          <div class="upload-dropzone" id="mriDropzone">
+            <div class="upload-dropzone__icon">📁</div>
+            <div class="upload-dropzone__text">
+              Drag & drop your MRI file here or <strong>browse</strong>
+            </div>
+            <div class="upload-dropzone__formats">.nii or .nii.gz NIfTI format</div>
+            <input type="file" id="mriFileInput" accept=".nii,.nii.gz,.gz">
+          </div>
+
+          <div class="upload-success" id="mriSuccess">
+            <div class="upload-success__file">
+              <div class="upload-success__file-icon">✓</div>
+              <div>
+                <div class="upload-success__file-name" id="mriFileName">—</div>
+                <div class="upload-success__file-size" id="mriFileSize">—</div>
+              </div>
+              <button class="upload-success__remove" id="mriRemove" aria-label="Remove file">✕</button>
+            </div>
+            <table class="file-meta" id="mriMeta"></table>
+          </div>
+        </div>
+
+        <!-- PET Upload Panel -->
+        <div class="glass-card upload-panel" id="petPanel">
+          <div class="upload-panel__header">
+            <div class="upload-panel__icon upload-panel__icon--pet">☢️</div>
+            <div>
+              <div class="upload-panel__title">PET Brain Scan</div>
+              <div class="upload-panel__format">Accepted: .nii, .nii.gz</div>
+            </div>
+          </div>
+
+          <div class="upload-dropzone" id="petDropzone">
+            <div class="upload-dropzone__icon">📁</div>
+            <div class="upload-dropzone__text">
+              Drag & drop your PET file here or <strong>browse</strong>
+            </div>
+            <div class="upload-dropzone__formats">.nii or .nii.gz NIfTI format</div>
+            <input type="file" id="petFileInput" accept=".nii,.nii.gz,.gz">
+          </div>
+
+          <div class="upload-success" id="petSuccess">
+            <div class="upload-success__file">
+              <div class="upload-success__file-icon">✓</div>
+              <div>
+                <div class="upload-success__file-name" id="petFileName">—</div>
+                <div class="upload-success__file-size" id="petFileSize">—</div>
+              </div>
+              <button class="upload-success__remove" id="petRemove" aria-label="Remove file">✕</button>
+            </div>
+            <table class="file-meta" id="petMeta"></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Preview (after upload) -->
+      <div class="glass-card hidden" id="previewSection" style="padding: var(--space-6); margin-bottom: var(--space-8);">
+        <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: var(--space-6);">Image Preview</h3>
+        <div class="upload-grid">
+          <!-- MRI Preview -->
+          <div>
+            <div class="viewer" id="mriViewer">
+              <div class="viewer__canvas-wrap">
+                <canvas id="mriCanvas" width="256" height="256"></canvas>
+              </div>
+              <div class="viewer__controls">
+                <div class="viewer__axis-tabs" data-viewer="mri">
+                  <button class="viewer__axis-tab active" data-axis="axial">Axial</button>
+                  <button class="viewer__axis-tab" data-axis="coronal">Coronal</button>
+                  <button class="viewer__axis-tab" data-axis="sagittal">Sagittal</button>
                 </div>
-                <div class="upload-box" data-type="pet">
-                    <p>Drag &amp; drop PET (NIfTI) here</p>
-                    <input type="file" accept=".nii,.nii.gz" hidden>
+                <div class="viewer__slider-group">
+                  <span class="viewer__slider-label">Slice</span>
+                  <input type="range" class="viewer__slider" id="mriSliceSlider" min="0" max="100" value="50">
+                  <span class="viewer__slice-num" id="mriSliceNum">50</span>
                 </div>
+              </div>
             </div>
-            <button id="fuse-btn" class="cta-btn disabled" disabled>✨ Fuse Images</button>
-        </section>
-
-        <!-- Fusion Visualization -->
-        <section class="fusion-visualization hidden" id="fusion-visualization">
-            <h3>Fusion Result</h3>
-            <div class="viewer-grid">
-                <div class="viewer-card"><canvas id="view-mri"></canvas></div>
-                <div class="viewer-card"><canvas id="view-pet"></canvas></div>
-                <div class="viewer-card"><canvas id="view-registered"></canvas></div>
-                <div class="viewer-card"><canvas id="view-fused"></canvas></div>
+            <p style="text-align:center; margin-top:var(--space-2); font-size:var(--font-sm); font-weight:600; color:var(--text-secondary);">MRI</p>
+          </div>
+          <!-- PET Preview -->
+          <div>
+            <div class="viewer" id="petViewer">
+              <div class="viewer__canvas-wrap">
+                <canvas id="petCanvas" width="256" height="256"></canvas>
+              </div>
+              <div class="viewer__controls">
+                <div class="viewer__axis-tabs" data-viewer="pet">
+                  <button class="viewer__axis-tab active" data-axis="axial">Axial</button>
+                  <button class="viewer__axis-tab" data-axis="coronal">Coronal</button>
+                  <button class="viewer__axis-tab" data-axis="sagittal">Sagittal</button>
+                </div>
+                <div class="viewer__slider-group">
+                  <span class="viewer__slider-label">Slice</span>
+                  <input type="range" class="viewer__slider" id="petSliceSlider" min="0" max="100" value="50">
+                  <span class="viewer__slice-num" id="petSliceNum">50</span>
+                </div>
+              </div>
             </div>
-        </section>
+            <p style="text-align:center; margin-top:var(--space-2); font-size:var(--font-sm); font-weight:600; color:var(--text-secondary);">PET</p>
+          </div>
+        </div>
+      </div>
 
-        <!-- Analysis Section -->
-        <section class="analysis-section hidden" id="analysis-section">
-            <h3>Fusion Metrics</h3>
-            <div class="metrics-grid">
-                <div class="metric-card"><span class="metric-value" id="ssim">–</span><p>SSIM</p></div>
-                <div class="metric-card"><span class="metric-value" id="entropy">–</span><p>Entropy</p></div>
-                <div class="metric-card"><span class="metric-value" id="mi">–</span><p>Mutual Information</p></div>
-                <div class="metric-card"><span class="metric-value" id="psnr">–</span><p>PSNR</p></div>
-                <div class="metric-card"><span class="metric-value" id="time">–</span><p>Processing Time</p></div>
+      <!-- Fusion Method Selection -->
+      <div class="glass-card hidden" id="methodSection" style="padding: var(--space-6); margin-bottom: var(--space-8);">
+        <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: var(--space-2);">Fusion Method</h3>
+        <p class="section-subtitle">Select a fusion algorithm to combine MRI and PET modalities.</p>
+        <div class="method-grid" id="methodGrid">
+          <div class="glass-card method-card selected" data-method="Weighted Fusion">
+            <div class="method-card__radio"></div>
+            <div class="method-card__name">Weighted Fusion</div>
+            <div class="method-card__desc">Combines MRI and PET using a simple weighted average. Equal weights preserve balanced structural and metabolic information.</div>
+          </div>
+          <div class="glass-card method-card" data-method="PCA Fusion">
+            <div class="method-card__radio"></div>
+            <div class="method-card__name">PCA Fusion</div>
+            <div class="method-card__desc">Uses Principal Component Analysis to determine optimal fusion weights from the data covariance structure.</div>
+          </div>
+          <div class="glass-card method-card" data-method="Wavelet Fusion">
+            <div class="method-card__radio"></div>
+            <div class="method-card__name">Wavelet Fusion</div>
+            <div class="method-card__desc">Decomposes images using the Haar wavelet transform. Low-frequency components are averaged while high-frequency details are selected by maximum absolute value.</div>
+          </div>
+          <div class="glass-card method-card" data-method="Improved Wavelet Fusion">
+            <div class="method-card__radio"></div>
+            <div class="method-card__name">Improved Wavelet Fusion</div>
+            <div class="method-card__desc">Enhanced wavelet fusion using a 2-level Daubechies-2 decomposition. Provides better frequency separation and preserves finer structural details.</div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-8);">
+          <button class="btn btn--primary btn--lg" id="runFusionBtn" disabled>
+            ⚡ Run Fusion
+          </button>
+          <button class="btn btn--secondary btn--lg" id="runAllFusionBtn" disabled style="margin-left: var(--space-3);">
+            📊 Compare All Methods
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State (before upload) -->
+      <div class="glass-card" id="emptyState">
+        <div class="empty-state">
+          <div class="empty-state__icon">🧠</div>
+          <div class="empty-state__title">Ready for Brain Image Fusion</div>
+          <div class="empty-state__desc">Upload an MRI and PET NIfTI scan above to begin multimodal brain image fusion.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RESULTS
+       ============================================================ -->
+  <section class="section hidden" id="results">
+    <div class="container">
+
+      <!-- Processing Pipeline -->
+      <div class="glass-card pipeline" id="pipelineCard" style="margin-bottom: var(--space-8);">
+        <h3 style="font-size: var(--font-xl); font-weight: 700; margin-bottom: var(--space-6); color: var(--text-primary);">Processing Pipeline</h3>
+        <div class="pipeline__steps" id="pipelineSteps">
+          <div class="pipeline__step pipeline__step--pending" data-step="load-mri">
+            <div class="pipeline__step-icon">1</div>
+            <div class="pipeline__step-content">
+              <div class="pipeline__step-name">Load MRI</div>
+              <div class="pipeline__step-status">Waiting</div>
             </div>
-        </section>
-    </section>
+          </div>
+          <div class="pipeline__step pipeline__step--pending" data-step="load-pet">
+            <div class="pipeline__step-icon">2</div>
+            <div class="pipeline__step-content">
+              <div class="pipeline__step-name">Load PET</div>
+              <div class="pipeline__step-status">Waiting</div>
+            </div>
+          </div>
+          <div class="pipeline__step pipeline__step--pending" data-step="validate">
+            <div class="pipeline__step-icon">3</div>
+            <div class="pipeline__step-content">
+              <div class="pipeline__step-name">Validate Dimensions</div>
+              <div class="pipeline__step-status">Waiting</div>
+            </div>
+          </div>
+          <div class="pipeline__step pipeline__step--pending" data-step="normalize">
+            <div class="pipeline__step-icon">4</div>
+            <div class="pipeline__step-content">
+              <div class="pipeline__step-name">Normalize Images</div>
+              <div class="pipeline__step-status">Waiting</div>
+            </div>
+          </div>
+          <div class="pipeline__step pipeline__step--pending" data-step="register">
+            <div class="pipeline__step-icon">5</div>
+            <div class="pipeline__step-content">
+              <div class="pipeline__step-name">Register PET → MRI</div>
+              <div class="pipeline__step-status">Waiting</div>
+            </div>
+          </div>
+          <div class="pipeline__step pipeline__step--pending" data-step="fuse">
+            <div class="pipeline__step-icon">6</div>
+            <div class="pipeline__step-content">
+              <div class="pipeline__step-name">Perform Fusion</div>
+              <div class="pipeline__step-status">Waiting</div>
+            </div>
+          </div>
+          <div class="pipeline__step pipeline__step--pending" data-step="evaluate">
+            <div class="pipeline__step-icon">7</div>
+            <div class="pipeline__step-content">
+              <div class="pipeline__step-name">Calculate Metrics</div>
+              <div class="pipeline__step-status">Waiting</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <script src="js/main.js"></script>
+      <!-- Fused Image Result -->
+      <div class="glass-card hidden" id="fusedResultCard" style="padding: var(--space-6); margin-bottom: var(--space-8);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-3);">
+          <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: 0;">Fused Brain Image</h3>
+          <span class="badge badge--success" id="fusionBadge"><span class="badge__dot"></span> Fusion Completed</span>
+        </div>
+        <div class="viewer" id="fusedViewer" style="max-width: 600px; margin: 0 auto;">
+          <div class="viewer__canvas-wrap">
+            <canvas id="fusedCanvas" width="256" height="256"></canvas>
+          </div>
+          <div class="viewer__controls">
+            <div class="viewer__axis-tabs" data-viewer="fused">
+              <button class="viewer__axis-tab active" data-axis="axial">Axial</button>
+              <button class="viewer__axis-tab" data-axis="coronal">Coronal</button>
+              <button class="viewer__axis-tab" data-axis="sagittal">Sagittal</button>
+            </div>
+            <div class="viewer__slider-group">
+              <span class="viewer__slider-label">Slice</span>
+              <input type="range" class="viewer__slider" id="fusedSliceSlider" min="0" max="100" value="50">
+              <span class="viewer__slice-num" id="fusedSliceNum">50</span>
+            </div>
+            <button class="btn btn--ghost btn--sm" id="fusedFullscreen" data-tooltip="Fullscreen">⛶</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MRI vs PET vs Fused Comparison -->
+      <div class="glass-card hidden" id="comparisonCard" style="padding: var(--space-6); margin-bottom: var(--space-8);">
+        <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: var(--space-2);">Image Comparison</h3>
+        <p class="section-subtitle">Synchronized slice navigation across all three modalities.</p>
+
+        <div class="comparison-grid">
+          <div class="glass-card comparison-panel">
+            <div class="comparison-panel__label">MRI</div>
+            <div class="comparison-panel__viewer">
+              <canvas id="compMriCanvas" width="256" height="256"></canvas>
+            </div>
+          </div>
+          <div class="glass-card comparison-panel">
+            <div class="comparison-panel__label">PET</div>
+            <div class="comparison-panel__viewer">
+              <canvas id="compPetCanvas" width="256" height="256"></canvas>
+            </div>
+          </div>
+          <div class="glass-card comparison-panel">
+            <div class="comparison-panel__label">Fused</div>
+            <div class="comparison-panel__viewer">
+              <canvas id="compFusedCanvas" width="256" height="256"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div style="max-width: 400px; margin: var(--space-4) auto 0;">
+          <div class="viewer__slider-group">
+            <span class="viewer__slider-label">Sync Slice</span>
+            <input type="range" class="viewer__slider" id="compSliceSlider" min="0" max="100" value="50">
+            <span class="viewer__slice-num" id="compSliceNum">50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Registration Info -->
+      <div class="glass-card reg-info hidden" id="regInfoCard" style="margin-bottom: var(--space-8);">
+        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5);">
+          <h3 style="font-size: var(--font-xl); font-weight: 700; color: var(--text-primary);">PET → MRI Registration</h3>
+          <span class="badge badge--success" id="regBadge"><span class="badge__dot"></span> Completed</span>
+        </div>
+        <div class="reg-info__grid" id="regInfoGrid"></div>
+      </div>
+
+      <!-- Quantitative Metrics -->
+      <div class="hidden" id="metricsSection" style="margin-bottom: var(--space-8);">
+        <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: var(--space-2);">Quantitative Metrics</h3>
+        <p class="section-subtitle">Quality evaluation of the fused image against source modalities.</p>
+        <div class="metrics-grid" id="metricsGrid"></div>
+      </div>
+
+      <!-- Image Info Accordions -->
+      <div class="hidden" id="imageInfoSection" style="margin-bottom: var(--space-8);">
+        <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: var(--space-6);">Image Information</h3>
+        <div style="display: flex; flex-direction: column; gap: var(--space-3);" id="imageInfoAccordions"></div>
+      </div>
+
+      <!-- Fusion Comparison (all methods) -->
+      <div class="hidden" id="fusionComparisonSection" style="margin-bottom: var(--space-8);">
+        <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: var(--space-2);">Fusion Algorithm Comparison</h3>
+        <p class="section-subtitle">Performance comparison across all four fusion methods.</p>
+
+        <div class="charts-grid" style="margin-bottom: var(--space-6);">
+          <div class="glass-card chart-card">
+            <div class="chart-card__title">Entropy Comparison</div>
+            <div class="chart-container"><canvas id="entropyChart"></canvas></div>
+          </div>
+          <div class="glass-card chart-card">
+            <div class="chart-card__title">SSIM Comparison</div>
+            <div class="chart-container"><canvas id="ssimChart"></canvas></div>
+          </div>
+          <div class="glass-card chart-card">
+            <div class="chart-card__title">Standard Deviation</div>
+            <div class="chart-container"><canvas id="stdChart"></canvas></div>
+          </div>
+          <div class="glass-card chart-card">
+            <div class="chart-card__title">Spatial Frequency</div>
+            <div class="chart-container"><canvas id="sfChart"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="glass-card comparison-table-wrap" style="padding: var(--space-5);">
+          <h4 style="font-size: var(--font-lg); font-weight: 700; margin-bottom: var(--space-4); color: var(--text-primary);">Results Summary</h4>
+          <div style="overflow-x: auto;">
+            <table class="comparison-table" id="comparisonTable">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Entropy</th>
+                  <th>SSIM (MRI)</th>
+                  <th>SSIM (PET)</th>
+                  <th>Std Dev</th>
+                  <th>Spatial Freq</th>
+                </tr>
+              </thead>
+              <tbody id="comparisonTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Section -->
+      <div class="hidden" id="exportSection">
+        <h3 class="section-title" style="font-size: var(--font-2xl); margin-bottom: var(--space-2);">Export Results</h3>
+        <p class="section-subtitle">Download generated results and reports.</p>
+        <div class="export-grid" id="exportGrid"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About This Project</h2>
+      <p class="section-subtitle">Understanding PET–MRI brain image fusion and its applications.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
+        <div class="glass-card" style="padding: var(--space-6);">
+          <h3 style="font-size: var(--font-lg); font-weight: 700; margin-bottom: var(--space-3); color: var(--text-primary);">🧲 MRI — Structural Imaging</h3>
+          <p style="font-size: var(--font-sm); color: var(--text-secondary); line-height: 1.7;">
+            Magnetic Resonance Imaging provides high-resolution anatomical detail of brain structures. 
+            It excels at differentiating soft tissues, showing gray matter, white matter, and cerebrospinal fluid with excellent spatial resolution.
+          </p>
+        </div>
+        <div class="glass-card" style="padding: var(--space-6);">
+          <h3 style="font-size: var(--font-lg); font-weight: 700; margin-bottom: var(--space-3); color: var(--text-primary);">☢️ PET — Functional Imaging</h3>
+          <p style="font-size: var(--font-sm); color: var(--text-secondary); line-height: 1.7;">
+            Positron Emission Tomography reveals metabolic and functional activity in the brain. 
+            It measures glucose metabolism, blood flow, and neurotransmitter activity, providing crucial information that structural imaging cannot capture.
+          </p>
+        </div>
+        <div class="glass-card" style="padding: var(--space-6);">
+          <h3 style="font-size: var(--font-lg); font-weight: 700; margin-bottom: var(--space-3); color: var(--text-primary);">🔬 Fusion — Combined Insight</h3>
+          <p style="font-size: var(--font-sm); color: var(--text-secondary); line-height: 1.7;">
+            Image fusion combines complementary information from both modalities into a single image. 
+            The fused image provides both structural detail and functional context, enabling more comprehensive brain analysis.
+          </p>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding: var(--space-6); margin-top: var(--space-6);">
+        <h3 style="font-size: var(--font-lg); font-weight: 700; margin-bottom: var(--space-4); color: var(--text-primary);">Fusion Methods</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+          <div>
+            <h4 style="font-weight: 700; font-size: var(--font-sm); color: var(--primary); margin-bottom: var(--space-1);">Weighted Fusion</h4>
+            <p style="font-size: var(--font-sm); color: var(--text-secondary);">Simple weighted average combining MRI structure and PET metabolic data with equal or user-defined weights.</p>
+          </div>
+          <div>
+            <h4 style="font-weight: 700; font-size: var(--font-sm); color: var(--primary); margin-bottom: var(--space-1);">PCA Fusion</h4>
+            <p style="font-size: var(--font-sm); color: var(--text-secondary);">Data-driven weighting using principal component analysis to capture the most important information from both modalities.</p>
+          </div>
+          <div>
+            <h4 style="font-weight: 700; font-size: var(--font-sm); color: var(--primary); margin-bottom: var(--space-1);">Wavelet Fusion</h4>
+            <p style="font-size: var(--font-sm); color: var(--text-secondary);">Haar wavelet decomposition with averaged low-frequency and max-selected high-frequency components.</p>
+          </div>
+          <div>
+            <h4 style="font-weight: 700; font-size: var(--font-sm); color: var(--primary); margin-bottom: var(--space-1);">Improved Wavelet</h4>
+            <p style="font-size: var(--font-sm); color: var(--text-secondary);">Enhanced 2-level Daubechies-2 wavelet decomposition for finer frequency separation and better detail preservation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__disclaimer">
+        <div class="footer__disclaimer-title">⚕️ Research & Educational Use Only</div>
+        <p class="footer__disclaimer-text">
+          This application is intended for research and educational purposes and is not a diagnostic medical device. 
+          It must not be used for clinical diagnosis or treatment decisions.
+        </p>
+      </div>
+      <p class="footer__copy">© 2026 PET–MRI Brain Image Fusion. Built for medical imaging research.</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       PROCESSING OVERLAY
+       ============================================================ -->
+  <div class="processing-overlay" id="processingOverlay">
+    <div class="processing-modal">
+      <div class="processing-modal__spinner"></div>
+      <div class="processing-modal__title" id="processingTitle">Processing PET–MRI Fusion</div>
+      <div class="processing-modal__steps" id="processingSteps"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HELP MODAL
+       ============================================================ -->
+  <div class="modal-backdrop" id="helpBackdrop"></div>
+  <div class="modal" id="helpModal">
+    <button class="modal__close" id="helpClose">✕</button>
+    <div class="modal__title">📖 How to Use</div>
+    <div class="modal__content">
+      <h3>1. Upload Brain Scans</h3>
+      <ul>
+        <li>Upload an MRI NIfTI file (.nii or .nii.gz)</li>
+        <li>Upload a PET NIfTI file (.nii or .nii.gz)</li>
+      </ul>
+
+      <h3>2. Preview Images</h3>
+      <ul>
+        <li>Navigate through axial, coronal, and sagittal views</li>
+        <li>Use the slice slider to browse through the volume</li>
+      </ul>
+
+      <h3>3. Select Fusion Method</h3>
+      <ul>
+        <li>Choose from Weighted, PCA, Wavelet, or Improved Wavelet fusion</li>
+        <li>Or compare all methods at once</li>
+      </ul>
+
+      <h3>4. View Results</h3>
+      <ul>
+        <li>Examine the fused brain image</li>
+        <li>Compare MRI, PET, and Fused side by side</li>
+        <li>Review quantitative metrics</li>
+      </ul>
+
+      <h3>5. Export</h3>
+      <ul>
+        <li>Download fused NIfTI, metrics reports, and visualizations</li>
+      </ul>
+
+      <h3>Supported Formats</h3>
+      <ul>
+        <li>NIfTI-1 (.nii and .nii.gz)</li>
+        <li>3D brain volumes only</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FULLSCREEN VIEWER
+       ============================================================ -->
+  <div class="fullscreen-viewer" id="fullscreenViewer">
+    <button class="fullscreen-viewer__close" id="fullscreenClose">✕</button>
+    <canvas id="fullscreenCanvas" width="512" height="512"></canvas>
+  </div>
+
+  <!-- ============================================================
+       TOAST NOTIFICATION
+       ============================================================ -->
+  <div class="toast" id="toast">
+    <span class="toast__icon" id="toastIcon">✓</span>
+    <span id="toastMessage">Success</span>
+  </div>
+
+  <!-- ============================================================
+       ERROR CARD (injected dynamically)
+       ============================================================ -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

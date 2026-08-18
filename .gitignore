@@ -60,3 +60,9 @@ tmp/
 
 # ── Project-specific generated files ────────────────────────────
 website/assets/bg_b64.txt
+
+# Root venv leak
+Lib/
+Scripts/
+Include/
+pyvenv.cfg

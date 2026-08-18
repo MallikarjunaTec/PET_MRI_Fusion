@@ -1,10 +1,10 @@
-# 🧠 PET–MRI Brain Image Fusion Workstation
+# 🧠 PET–MRI Brain Image Fusion
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)
 ![Medical Imaging](https://img.shields.io/badge/Medical_Imaging-NIfTI-brightgreen.svg)
 
-A professional multimodal medical image fusion research workstation that combines structural information from MRI with functional/metabolic information from PET using advanced image-fusion techniques. 
+A premium glassmorphism medical imaging web interface for multimodal brain image fusion — combining structural information from MRI with functional/metabolic information from PET using advanced fusion algorithms.
 
 ---
 
@@ -15,15 +15,19 @@ A professional multimodal medical image fusion research workstation that combine
 
 ## Project Overview
 
-Magnetic Resonance Imaging (MRI) provides high-resolution anatomical structure, while Positron Emission Tomography (PET) provides crucial metabolic and functional information. This workstation spatially aligns these two modalities and merges them into a single, fused representation, preserving the critical information from both source images.
+Magnetic Resonance Imaging (MRI) provides high-resolution anatomical structure, while Positron Emission Tomography (PET) provides crucial metabolic and functional information. This workstation spatially aligns these two modalities and merges them into a single, fused representation, preserving critical information from both source images.
 
 ### Key Features
+- **Premium Glassmorphism UI**: Modern frosted-glass interface with light/dark theme support.
 - **NIfTI Support**: Native loading and processing of `.nii` and `.nii.gz` volumetric data.
 - **Automated Registration**: Rigid spatial alignment (PET → MRI) using SimpleITK with Mattes Mutual Information.
-- **Multiple Algorithms**: Implementation of Weighted, PCA, Wavelet, and Improved Wavelet fusion techniques.
-- **Quantitative Evaluation**: Real-time calculation of Entropy, SSIM, Standard Deviation, and Spatial Frequency.
-- **Interactive UI**: A premium, medical-grade dark-themed workstation interface built with Streamlit.
-- **Export Capabilities**: Download fused NIfTI volumes and comparative evaluation reports.
+- **Multiple Fusion Algorithms**: Weighted, PCA, Wavelet, and Improved Wavelet fusion techniques.
+- **Real-time Image Viewer**: Axial, coronal, and sagittal slice navigation with synchronized comparison views.
+- **Color Composite Rendering**: Fused images displayed as MRI structure + PET metabolic color overlay.
+- **Quantitative Evaluation**: Entropy, SSIM, Standard Deviation, and Spatial Frequency metrics.
+- **Algorithm Comparison**: Interactive Chart.js charts comparing all four fusion methods.
+- **Export Capabilities**: Download fused NIfTI volumes, registered PET, metrics reports, and PNG visualizations.
+- **Responsive Design**: Works on desktop, tablet, and mobile.
 
 ---
 
@@ -31,8 +35,8 @@ Magnetic Resonance Imaging (MRI) provides high-resolution anatomical structure, 
 
 ```mermaid
 graph TD
-    A[MRI Input] --> C(Preprocessing & Normalization)
-    B[PET Input] --> C
+    A[MRI Input .nii/.nii.gz] --> C(Preprocessing & Normalization)
+    B[PET Input .nii/.nii.gz] --> C
     C --> D[PET → MRI Registration]
     D --> E{Fusion Algorithms}
     E --> F[Weighted]
@@ -57,25 +61,26 @@ graph TD
 ## Fusion Methods
 
 1. **Weighted Fusion**: Linear intensity blending of the two modalities `(Fused = α × MRI + β × PET)`.
-2. **PCA Fusion**: Principal Component Analysis is used to extract and combine the principal structural components from the source images.
-3. **Wavelet Fusion**: Discrete Wavelet Transform (DWT) decomposes images into high/low frequency bands which are merged using specialized fusion rules.
-4. **Improved Wavelet Fusion**: An enhanced wavelet approach utilizing adaptive weighting for superior preservation of metabolic hotspots and structural boundaries.
+2. **PCA Fusion**: Principal Component Analysis extracts optimal fusion weights from the data covariance structure, preserving the most important information from both modalities.
+3. **Wavelet Fusion**: Haar wavelet decomposition — low-frequency components averaged, high-frequency details selected by maximum absolute value.
+4. **Improved Wavelet Fusion**: Enhanced 2-level Daubechies-2 (db2) wavelet decomposition for finer frequency separation and better detail preservation.
 
 ---
 
 ## Evaluation Metrics
 
-To quantitatively assess fusion performance, the following metrics are calculated:
-- **Entropy**: Measures the information content and richness of the fused image.
-- **SSIM (Structural Similarity)**: Evaluates how well the structural integrity of the original MRI and PET is preserved in the fused output.
-- **Standard Deviation (STD)**: Assesses the overall contrast and intensity variation.
-- **Spatial Frequency**: Measures the overall spatial detail and high-frequency activity preserved.
+| Metric | Description |
+|---|---|
+| **Entropy** | Measures information content — higher entropy indicates richer fused image |
+| **SSIM** | Structural similarity to MRI and PET — values closer to 1.0 indicate better preservation |
+| **Standard Deviation** | Assesses overall contrast and intensity variation |
+| **Spatial Frequency** | Measures spatial detail and edge activity preservation |
 
 ---
 
 ## Results
 
-*The following values are experimental results derived from the current testing dataset and should not be interpreted as clinical performance standards.*
+*Experimental results from the testing dataset. Not clinical performance standards.*
 
 | Method | Entropy | MRI SSIM | PET SSIM | STD | Spatial Frequency |
 |---|---:|---:|---:|---:|---:|
@@ -86,43 +91,63 @@ To quantitatively assess fusion performance, the following metrics are calculate
 
 ---
 
-## 📸 Results & Screenshots
+## 📸 Screenshots
 
-### Application Overview
-![UI Overview](docs/screenshots/ui-overview.png)
-*The main workstation interface featuring the medical dark theme and modality-specific styling.*
+### Hero Section (Dark Theme)
+![Hero Section](docs/screenshots/hero_section.png)
 
-### Image Upload Workspace
-![Upload Panel](docs/screenshots/upload-panel.png)
-*Premium file dropzones with NIfTI validation and format tag highlights.*
+### Fusion Workspace — Upload Panels
+![Workspace Upload](docs/screenshots/workspace_upload.png)
 
-### Image Metadata Analysis
-![Image Metadata](docs/screenshots/image-metadata.png)
-*Detailed extraction of volumetric dimensions, voxel spacing, and intensity ranges from the MRI and PET headers.*
+### Image Preview — MRI & PET Scans
+![Image Preview](docs/screenshots/image_preview.png)
 
-### PCA Fusion
-![PCA Fusion](docs/screenshots/pca-fusion.png)
-*Left: MRI Input | Middle: Registered PET | Right: PCA Fused Output*
+### Fusion Method Selection
+![Fusion Method](docs/screenshots/fusion_method.png)
 
-### Fusion Result Preview
-![Fusion Preview](docs/screenshots/fusion-preview.png)
-*A clear side-by-side view comparing the MRI structure, the functional PET heatmap, and the fused outcome.*
+### Algorithm Comparison Results
+![Results Dashboard](docs/screenshots/results.png)
 
-### Metrics Comparison
-![Entropy Comparison](docs/screenshots/entropy-comparison.png)
-*Quantitative evaluation of fusion algorithms across structural and metabolic preservation metrics.*
+---
+
+## Architecture
+
+```
+Browser (HTML/CSS/JS)  ──REST API──▶  Flask Server (server.py)
+                                           │
+                                           ├── src/preprocessing.py
+                                           ├── src/registration.py
+                                           ├── src/fusion_methods.py
+                                           └── src/evaluation.py
+```
+
+**Frontend**: Vanilla HTML + CSS + JavaScript (glassmorphism design, Chart.js for charts)
+**Backend**: Flask — wraps existing `src/` processing modules as REST API endpoints
+
+### API Endpoints
+
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/api/upload/mri` | POST | Upload & validate MRI NIfTI |
+| `/api/upload/pet` | POST | Upload & validate PET NIfTI |
+| `/api/slice/<type>/<axis>/<index>` | GET | Get a slice as base64 PNG |
+| `/api/fuse` | POST | Register + fuse + evaluate (single method) |
+| `/api/fuse/all` | POST | Run all 4 fusion methods + compare |
+| `/api/download/<key>` | GET | Download generated NIfTI/reports/PNGs |
 
 ---
 
 ## Technologies Used
 
 - **Python**: Core programming language.
-- **Streamlit**: Interactive web interface.
+- **Flask**: Lightweight web server and REST API.
 - **SimpleITK**: Medical image registration and alignment.
 - **NiBabel**: NIfTI file I/O operations.
 - **scikit-image**: Structural similarity (SSIM) and image processing.
 - **PyWavelets**: Wavelet decomposition and fusion.
 - **NumPy / SciPy / Pandas**: Numerical computation and data management.
+- **Matplotlib**: Server-side image slice rendering.
+- **Chart.js**: Interactive frontend comparison charts.
 
 ---
 
@@ -130,25 +155,31 @@ To quantitatively assess fusion performance, the following metrics are calculate
 
 ```text
 PET_MRI_Fusion/
-├── app/
-│   ├── app.py                  # Main Streamlit application entry point
-│   └── components/             # Modular UI components (upload, viewer, metrics)
-├── src/
-│   ├── preprocessing.py        # Image normalization
-│   ├── registration.py         # PET → MRI alignment logic
-│   ├── fusion_methods.py       # Fusion algorithms (PCA, Wavelet, etc.)
-│   └── evaluation.py           # SSIM, Entropy, and Spatial Frequency calculation
-├── docs/
-│   └── screenshots/            # Repository for UI and result screenshots
+├── server.py                      # Flask web server & REST API
 ├── website/
-│   └── assets/                 # UI graphical assets
-├── .streamlit/                 # UI Theme configuration
-├── .gitignore                  # Exclusion rules for datasets and temp files
-├── requirements.txt            # Python dependencies
-└── README.md                   # Project documentation
+│   ├── index.html                 # Single-page application (all sections)
+│   ├── css/
+│   │   └── style.css              # Glassmorphism design system (light/dark)
+│   └── js/
+│       └── app.js                 # Frontend logic (uploads, viewers, charts)
+├── src/
+│   ├── __init__.py                # Package init
+│   ├── preprocessing.py           # Image normalization & NIfTI validation
+│   ├── registration.py            # PET → MRI alignment (SimpleITK)
+│   ├── fusion_methods.py          # Fusion algorithms (Weighted, PCA, Wavelet, Improved Wavelet)
+│   └── evaluation.py              # SSIM, Entropy, Spatial Frequency metrics
+├── dataset/                       # Input NIfTI brain scans (not in repo)
+├── uploads/                       # Temporary uploaded files (auto-created)
+├── outputs/                       # Generated fused images & reports (auto-created)
+├── results/                       # Pre-generated results
+├── docs/
+│   └── screenshots/               # UI screenshots for README
+├── requirements.txt               # Python dependencies
+├── .gitignore                     # Exclusion rules
+└── README.md                      # This file
 ```
 
-*Note: Large medical datasets (`dataset/`) and generated NIfTI files (`results/`, `outputs/`) are intentionally excluded from version control. Ensure you acquire the dataset from authorized sources and place it within the `dataset/` directory.*
+*Note: Large medical datasets (`dataset/`), uploaded files (`uploads/`), and generated outputs (`outputs/`, `results/`) are excluded from version control.*
 
 ---
 
@@ -182,21 +213,37 @@ pip install -r requirements.txt
 
 ## How to Run
 
-Launch the Streamlit application from the project root:
+Start the Flask web server:
 
 ```bash
-streamlit run app/app.py
+python server.py
 ```
-The workstation will automatically open in your default browser at `http://localhost:8501`.
+
+Open **http://localhost:5000** in your browser.
+
+### User Flow
+
+1. **Open website** → premium glassmorphism hero section
+2. **Click "Start Fusion"** → scrolls to workspace
+3. **Upload MRI** → drag & drop `.nii.gz` file → validates, shows metadata + preview
+4. **Upload PET** → drag & drop `.nii.gz` file → validates, shows metadata + preview
+5. **Select fusion method** → Weighted / PCA / Wavelet / Improved Wavelet
+6. **Click "Run Fusion"** → processing overlay with pipeline animation
+7. **View fused image** → color composite with axial/coronal/sagittal navigation
+8. **Compare side-by-side** → MRI vs PET vs Fused (synchronized slices)
+9. **Review metrics** → Entropy, SSIM, Std Dev, Spatial Frequency
+10. **Compare all methods** → Chart.js bar charts + results table
+11. **Download results** → NIfTI files, metrics reports, PNG visualizations
 
 ---
 
 ## Limitations
 
-- Fusion quality is heavily dependent on the resolution and quality of the input images.
+- Fusion quality depends on the resolution and quality of input images.
 - Rigid registration may not account for patient movement or soft tissue deformation between scans.
 - Quantitative metrics (like SSIM and Entropy) do not guarantee clinical validity.
 - Different imaging protocols and scanner hardware may produce varying results.
+- Processing time depends on volume size — large 3D volumes may take several minutes on CPU.
 
 ---
 
@@ -207,6 +254,7 @@ The workstation will automatically open in your default browser at `http://local
 - 3D volumetric rendering and interactive overlay tools.
 - GPU acceleration for real-time processing of large high-resolution volumes.
 - Batch processing pipeline for large-scale dataset evaluation.
+- WebSocket-based real-time processing progress updates.
 
 ---
 
