@@ -1358,7 +1358,8 @@ def inject_theme():
                   height: 104%;
                   object-fit: cover;
                   object-position: center left;
-                  opacity: 0.70;
+                  opacity: 0.50;
+                  filter: blur(6px);
                 "
               />
               <!-- Left dark vignette -->
@@ -1412,29 +1413,35 @@ def inject_theme():
             .top-nav {{
                 position: relative !important;
                 z-index: 1001 !important;
-                background: rgba(5, 13, 21, 0.97) !important;
+                background: rgba(6, 18, 28, 0.90) !important;
                 backdrop-filter: blur(16px) !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
             }}
-            /* Glass panels over the background */
+            /* Glass panels over the background - enhanced to pop out */
             .upload-panel,
             .fusion-ctrl-panel,
             .export-wrap,
             .empty-state-panel {{
-                background: rgba(6, 16, 26, 0.82) !important;
-                backdrop-filter: blur(14px) !important;
-                -webkit-backdrop-filter: blur(14px) !important;
+                background: rgba(6, 16, 26, 0.88) !important;
+                backdrop-filter: blur(18px) !important;
+                -webkit-backdrop-filter: blur(18px) !important;
                 position: relative !important;
                 z-index: 1 !important;
+                border: 1px solid rgba(41, 217, 255, 0.15) !important;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
             }}
             .metric-sci {{
-                background: rgba(6, 16, 26, 0.78) !important;
-                backdrop-filter: blur(10px) !important;
+                background: rgba(6, 16, 26, 0.85) !important;
+                backdrop-filter: blur(12px) !important;
                 position: relative !important;
                 z-index: 1 !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
             }}
             [data-testid="stExpander"] {{
-                background: rgba(6, 16, 26, 0.78) !important;
-                backdrop-filter: blur(10px) !important;
+                background: rgba(6, 16, 26, 0.85) !important;
+                backdrop-filter: blur(12px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
             }}
             </style>
             """,
