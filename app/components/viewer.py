@@ -7,7 +7,7 @@ with brightness/contrast/opacity controls, and overlay rendering.
 
 import streamlit as st
 import numpy as np
-import matplotlib.cm as cm
+import matplotlib as mpl
 
 
 # ════════════════════════════════════════════════════════════════
@@ -71,7 +71,12 @@ def colorize_slice(
 
     norm = np.clip(norm, 0, 1)
 
-    colormap = cm.get_cmap(cmap_name)
+    try:
+        colormap = mpl.colormaps[cmap_name]
+    except AttributeError:
+        # Fallback for older matplotlib versions just in case
+        import matplotlib.cm as cm
+        colormap = cm.get_cmap(cmap_name)
     rgba = colormap(norm)
     return (rgba[:, :, :3] * 255).astype(np.uint8)
 

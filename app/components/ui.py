@@ -26,34 +26,34 @@ PREMIUM_THEME_CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* ── CSS Variables (Light / White Theme) ── */
+/* ── CSS Variables (Dark Premium Theme) ── */
 :root {
-  --bg-0:          #ffffff;
-  --bg-1:          #f4f7fa;
-  --bg-2:          #e8edf3;
-  --bg-glass:      rgba(255, 255, 255, 0.88);
-  --bg-glass-lt:   rgba(244, 247, 250, 0.72);
-  --border:        rgba(0, 0, 0, 0.09);
-  --border-accent: rgba(8, 145, 178, 0.28);
-  --cyan:          #0891b2;
-  --cyan-dim:      rgba(8, 145, 178, 0.08);
-  --blue:          #2563eb;
-  --violet:        #7c3aed;
-  --violet-dim:    rgba(124, 58, 237, 0.08);
-  --green:         #059669;
-  --green-dim:     rgba(5, 150, 105, 0.08);
-  --amber:         #d97706;
-  --red:           #dc2626;
-  --text-1:        #0f172a;
-  --text-2:        #334155;
-  --text-3:        #64748b;
+  --bg-0:          #06131C;
+  --bg-1:          #0B1E29;
+  --bg-2:          #112938;
+  --bg-glass:      rgba(6, 18, 28, 0.72);
+  --bg-glass-lt:   rgba(11, 30, 41, 0.85);
+  --border:        rgba(41, 217, 255, 0.15);
+  --border-accent: rgba(41, 217, 255, 0.35);
+  --cyan:          #18D6E8;
+  --cyan-dim:      rgba(24, 214, 232, 0.15);
+  --blue:          #38BDF8;
+  --violet:        #8B7CFF;
+  --violet-dim:    rgba(139, 124, 255, 0.15);
+  --green:         #19D3A2;
+  --green-dim:     rgba(25, 211, 162, 0.15);
+  --amber:         #F59E0B;
+  --red:           #F05BA6;
+  --text-1:        #F8FAFC;
+  --text-2:        #94A3B8;
+  --text-3:        #475569;
   --r-sm:          8px;
   --r-md:          14px;
   --r-lg:          20px;
   --r-xl:          24px;
-  --shadow-md:     0 4px 24px rgba(0, 0, 0, 0.08);
-  --shadow-lg:     0 8px 40px rgba(0, 0, 0, 0.12);
-  --glow-cyan:     0 0 32px rgba(8, 145, 178, 0.10);
+  --shadow-md:     0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-lg:     0 16px 48px rgba(0, 0, 0, 0.7);
+  --glow-cyan:     0 0 24px rgba(24, 214, 232, 0.25);
   --transition:    all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1342,33 +1342,48 @@ def inject_theme():
                 style="
                   position: absolute;
                   right: -2%; top: -2%;
-                  width: 60%;
+                  width: 68%;
                   height: 104%;
                   object-fit: cover;
                   object-position: center left;
-                  opacity: 0.08;
-                  filter: grayscale(60%) contrast(0.8);
+                  opacity: 0.50;
+                  filter: blur(6px);
                 "
               />
-              <!-- White left vignette -->
+              <!-- Left dark vignette -->
               <div style="
                 position: absolute;
                 inset: 0;
                 background: linear-gradient(
                   105deg,
-                  #ffffff 0%,
-                  #ffffff 35%,
-                  rgba(255,255,255,0.90) 52%,
-                  rgba(255,255,255,0.70) 70%,
-                  rgba(255,255,255,0.50) 100%
+                  #06121C 0%,
+                  #06121C 22%,
+                  rgba(6,18,28,0.92) 36%,
+                  rgba(6,18,28,0.55) 52%,
+                  rgba(6,18,28,0.18) 70%,
+                  rgba(6,18,28,0.04) 100%
                 );
+              "></div>
+              <!-- Bottom fade -->
+              <div style="
+                position: absolute;
+                bottom: 0; left: 0; right: 0;
+                height: 200px;
+                background: linear-gradient(to top, #06121C 0%, transparent 100%);
+              "></div>
+              <!-- Top fade -->
+              <div style="
+                position: absolute;
+                top: 0; left: 0; right: 0;
+                height: 70px;
+                background: linear-gradient(to bottom, rgba(6,18,28,0.85) 0%, transparent 100%);
               "></div>
             </div>
 
             <style>
-            /* Root background — white */
+            /* Root background — fallback colour */
             html, body {{
-                background: #ffffff !important;
+                background: #06121C !important;
             }}
             /* Strip background from ALL Streamlit containers */
             html body .stApp,
@@ -1382,37 +1397,39 @@ def inject_theme():
                 background-color: transparent !important;
                 background-image: none !important;
             }}
-            /* Nav bar: solid white */
+            /* Nav bar sits above everything */
             .top-nav {{
                 position: relative !important;
                 z-index: 1001 !important;
-                background: rgba(255, 255, 255, 0.97) !important;
+                background: rgba(6, 18, 28, 0.90) !important;
                 backdrop-filter: blur(16px) !important;
-                box-shadow: 0 1px 8px rgba(0,0,0,0.07) !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
             }}
-            /* Glass panels: white with subtle shadow */
+            /* Glass panels over the background - enhanced to pop out */
             .upload-panel,
             .fusion-ctrl-panel,
             .export-wrap,
             .empty-state-panel {{
-                background: rgba(255, 255, 255, 0.90) !important;
-                backdrop-filter: blur(12px) !important;
-                -webkit-backdrop-filter: blur(12px) !important;
-                box-shadow: 0 2px 16px rgba(0,0,0,0.06) !important;
+                background: rgba(6, 16, 26, 0.88) !important;
+                backdrop-filter: blur(18px) !important;
+                -webkit-backdrop-filter: blur(18px) !important;
                 position: relative !important;
                 z-index: 1 !important;
+                border: 1px solid rgba(41, 217, 255, 0.15) !important;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
             }}
             .metric-sci {{
-                background: rgba(255, 255, 255, 0.88) !important;
-                backdrop-filter: blur(8px) !important;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+                background: rgba(6, 16, 26, 0.85) !important;
+                backdrop-filter: blur(12px) !important;
                 position: relative !important;
                 z-index: 1 !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
             }}
             [data-testid="stExpander"] {{
-                background: rgba(255, 255, 255, 0.88) !important;
-                backdrop-filter: blur(8px) !important;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+                background: rgba(6, 16, 26, 0.85) !important;
+                backdrop-filter: blur(12px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
             }}
             </style>
             """,
