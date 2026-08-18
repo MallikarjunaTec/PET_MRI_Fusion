@@ -490,7 +490,14 @@ if "registration_info" in st.session_state:
                     use_container_width=True,
                 )
 
-    section_divider()
+else:
+    render_empty_state(
+        icon="⚖️",
+        title="Comparison Pending",
+        description="Run the fusion pipeline first to enable multi-algorithm comparison."
+    )
+
+section_divider()
 
 
 # ════════════════════════════════════════════════════════════════

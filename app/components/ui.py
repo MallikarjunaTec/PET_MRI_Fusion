@@ -26,40 +26,35 @@ PREMIUM_THEME_CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* ── CSS Variables ── */
+/* ── CSS Variables (Light / White Theme) ── */
 :root {
-  --bg-0:          #06121C;
-  --bg-1:          #081722;
-  --bg-2:          #0B1B28;
-  --bg-elevated:   #102534;
-  --bg-glass:      rgba(11, 27, 40, 0.75);
-  --bg-glass-lt:   rgba(16, 37, 52, 0.5);
-  --border:        #1B3445;
-  --border-accent: rgba(41, 217, 255, 0.22);
-  --cyan:          #29D9FF;
-  --cyan-dim:      rgba(41, 217, 255, 0.1);
-  --blue:          #4C8DFF;
-  --violet:        #A855F7;
-  --violet-dim:    rgba(168, 85, 247, 0.1);
-  --teal:          #16C6B7;
-  --teal-dim:      rgba(22, 198, 183, 0.1);
-  --green:         #27D7A0;
-  --green-dim:     rgba(39, 215, 160, 0.1);
-  --amber:         #fbbf24;
-  --red:           #f87171;
-  --text-1:        #EAF4F8;
-  --text-2:        #8FA8B8;
-  --text-3:        #60798A;
+  --bg-0:          #ffffff;
+  --bg-1:          #f4f7fa;
+  --bg-2:          #e8edf3;
+  --bg-glass:      rgba(255, 255, 255, 0.88);
+  --bg-glass-lt:   rgba(244, 247, 250, 0.72);
+  --border:        rgba(0, 0, 0, 0.09);
+  --border-accent: rgba(8, 145, 178, 0.28);
+  --cyan:          #0891b2;
+  --cyan-dim:      rgba(8, 145, 178, 0.08);
+  --blue:          #2563eb;
+  --violet:        #7c3aed;
+  --violet-dim:    rgba(124, 58, 237, 0.08);
+  --green:         #059669;
+  --green-dim:     rgba(5, 150, 105, 0.08);
+  --amber:         #d97706;
+  --red:           #dc2626;
+  --text-1:        #0f172a;
+  --text-2:        #334155;
+  --text-3:        #64748b;
   --r-sm:          8px;
   --r-md:          14px;
-  --r-lg:          18px;
+  --r-lg:          20px;
   --r-xl:          24px;
-  --shadow-md:     0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg:     0 8px 40px rgba(0, 0, 0, 0.5);
-  --glow-cyan:     0 0 24px rgba(41, 217, 255, 0.12);
-  --glow-mri:      0 0 24px rgba(76, 141, 255, 0.15);
-  --glow-pet:      0 0 24px rgba(168, 85, 247, 0.15);
-  --transition:    all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-md:     0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg:     0 8px 40px rgba(0, 0, 0, 0.12);
+  --glow-cyan:     0 0 32px rgba(8, 145, 178, 0.10);
+  --transition:    all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ── Base / Streamlit Overrides ── */
@@ -129,13 +124,14 @@ label {
   justify-content: space-between;
   padding: 0 2rem;
   height: 58px;
-  background: rgba(6, 18, 28, 0.85);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   position: relative;
   z-index: 1000;
   margin: 0 -2rem 0 -2rem;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
 }
 .top-nav-logo {
   display: flex;
@@ -145,7 +141,7 @@ label {
 }
 .logo-mark {
   width: 34px; height: 34px;
-  background: linear-gradient(135deg, var(--cyan) 0%, var(--teal) 100%);
+  background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%);
   border-radius: 9px;
   display: flex;
   align-items: center;
@@ -185,7 +181,7 @@ label {
 }
 .top-nav-links a:hover {
   color: var(--text-1) !important;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.05);
 }
 .top-nav-links a.active {
   color: var(--teal) !important;
@@ -221,36 +217,23 @@ label {
   border-radius: var(--r-sm);
   display: flex; align-items: center; justify-content: center;
   color: var(--text-2) !important;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.04);
   border: 1px solid var(--border);
   cursor: pointer;
   transition: var(--transition);
   font-size: 14px;
 }
 .nav-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.08);
   color: var(--text-1) !important;
 }
 
-/* Settings button — fixed in top-right nav, beside the ○ user icon */
+/* Settings button positioned to look like the nav gear icon */
 #settings-btn-wrap {
   position: fixed;
-  top: 10px;
-  right: 52px;
-  z-index: 9999;
-  height: 0;          /* take no layout space */
-  overflow: visible;
-}
-#settings-btn-wrap > div {
-  height: 0 !important;
-  overflow: visible !important;
-}
-#settings-btn-wrap [data-testid="stVerticalBlock"] {
-  height: 0 !important;
-  gap: 0 !important;
-}
-#settings-btn-wrap .stButton {
-  height: 32px !important;
+  top: 12px;
+  right: 54px;
+  z-index: 2000;
 }
 #settings-btn-wrap .stButton > button {
   width: 32px !important;
@@ -258,19 +241,19 @@ label {
   min-width: 32px !important;
   padding: 0 !important;
   border-radius: 8px !important;
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255,255,255,0.10) !important;
-  color: rgba(148,163,184,0.9) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-2) !important;
   font-size: 15px !important;
-  line-height: 1 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: none !important;
-  transition: all 0.2s ease !important;
 }
 #settings-btn-wrap .stButton > button:hover {
-  background: rgba(255, 255, 255, 0.10) !important;
-  color: #f0f9ff !important;
-  transform: rotate(35deg) scale(1.05) !important;
-  border-color: rgba(34,211,238,0.35) !important;
+  background: rgba(0, 0, 0, 0.09) !important;
+  color: var(--text-1) !important;
+  transform: rotate(30deg) !important;
 }
 
 /* Settings dialog styling */
@@ -361,7 +344,7 @@ label {
 .ws-tech-tag {
   font-size: 0.62rem;
   padding: 2px 7px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.04);
   border: 1px solid var(--border);
   border-radius: 4px;
   color: var(--text-3) !important;
@@ -420,18 +403,40 @@ label {
   transform: translateY(-2px);
 }
 .upload-panel.mri:hover {
-  border-color: rgba(76, 141, 255, 0.3);
+  border-color: rgba(56, 189, 248, 0.3);
   box-shadow: var(--glow-mri);
 }
 .upload-panel.pet:hover {
-  border-color: rgba(168, 85, 247, 0.3);
+  border-color: rgba(240, 91, 166, 0.3);
   box-shadow: var(--glow-pet);
 }
 .upload-panel.mri.loaded {
-  border-color: rgba(76, 141, 255, 0.2);
+  border-color: rgba(56, 189, 248, 0.2);
 }
 .upload-panel.pet.loaded {
-  border-color: rgba(168, 85, 247, 0.2);
+  border-color: rgba(240, 91, 166, 0.2);
+}
+
+.upload-panel.mri [data-testid="stFileUploaderDropzone"] {
+  border: 1.5px dashed rgba(56, 189, 248, 0.4) !important;
+  background: rgba(56, 189, 248, 0.03) !important;
+  border-radius: var(--r-md);
+  margin-top: 10px;
+}
+.upload-panel.mri [data-testid="stFileUploaderDropzone"]:hover {
+  border-color: rgba(56, 189, 248, 0.8) !important;
+  background: rgba(56, 189, 248, 0.08) !important;
+}
+
+.upload-panel.pet [data-testid="stFileUploaderDropzone"] {
+  border: 1.5px dashed rgba(240, 91, 166, 0.4) !important;
+  background: rgba(240, 91, 166, 0.03) !important;
+  border-radius: var(--r-md);
+  margin-top: 10px;
+}
+.upload-panel.pet [data-testid="stFileUploaderDropzone"]:hover {
+  border-color: rgba(240, 91, 166, 0.8) !important;
+  background: rgba(240, 91, 166, 0.08) !important;
 }
 .upload-panel-top-line {
   position: absolute;
@@ -502,7 +507,7 @@ label {
 }
 .upload-fmt-tag {
   padding: 2px 8px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.04);
   border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 0.64rem;
@@ -510,15 +515,6 @@ label {
   color: var(--text-3) !important;
   letter-spacing: 0.4px;
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  transition: var(--transition);
-}
-.upload-panel.mri:hover .upload-fmt-tag {
-  border-color: rgba(76, 141, 255, 0.2);
-  color: rgba(76, 141, 255, 0.8) !important;
-}
-.upload-panel.pet:hover .upload-fmt-tag {
-  border-color: rgba(168, 85, 247, 0.2);
-  color: rgba(168, 85, 247, 0.8) !important;
 }
 .upload-hint {
   font-size: 0.7rem;
@@ -622,7 +618,7 @@ label {
    SCAN PANELS (Image Viewer)
 ════════════════════════════════ */
 .scan-panel {
-  background: #010c15;
+  background: #f0f4f8;
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   overflow: hidden;
@@ -637,7 +633,7 @@ label {
   align-items: center;
   justify-content: space-between;
   padding: 7px 12px;
-  background: rgba(11, 28, 44, 0.9);
+  background: rgba(244, 247, 250, 0.95);
   border-bottom: 1px solid var(--border);
 }
 .scan-label-text {
@@ -841,7 +837,7 @@ label {
 }
 .m-bar-bg {
   height: 2px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 2px;
   margin-top: 0.9rem;
   overflow: hidden;
@@ -1032,12 +1028,12 @@ label {
 }
 .stButton > button[kind="secondary"],
 .stButton > button[data-testid="baseButton-secondary"] {
-  background: rgba(255, 255, 255, 0.04) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   color: var(--text-2) !important;
   border: 1px solid var(--border) !important;
 }
 .stButton > button[kind="secondary"]:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(0, 0, 0, 0.08) !important;
   border-color: var(--border-accent) !important;
   color: var(--text-1) !important;
 }
@@ -1047,7 +1043,7 @@ label {
   font-family: 'Inter', sans-serif !important;
   font-weight: 500 !important;
   border-radius: 10px !important;
-  background: rgba(255, 255, 255, 0.04) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   color: var(--text-2) !important;
   border: 1px solid var(--border) !important;
   transition: all 0.22s ease !important;
@@ -1063,14 +1059,14 @@ label {
   background: transparent !important;
 }
 [data-testid="stFileUploaderDropzone"] {
-  background: rgba(11, 28, 44, 0.4) !important;
-  border: 1.5px dashed rgba(34, 211, 238, 0.22) !important;
+  background: rgba(244, 247, 250, 0.8) !important;
+  border: 1.5px dashed rgba(8, 145, 178, 0.28) !important;
   border-radius: 14px !important;
   transition: all 0.22s ease !important;
 }
 [data-testid="stFileUploaderDropzone"]:hover {
-  background: rgba(34, 211, 238, 0.04) !important;
-  border-color: rgba(34, 211, 238, 0.45) !important;
+  background: rgba(8, 145, 178, 0.04) !important;
+  border-color: rgba(8, 145, 178, 0.5) !important;
 }
 [data-testid="stFileUploaderDropzoneInstructions"] p,
 [data-testid="stFileUploaderDropzone"] small,
@@ -1106,7 +1102,7 @@ label {
   font-family: 'Inter', sans-serif !important;
 }
 [data-testid="stSlider"] [data-testid="stSliderTrack"] {
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(0, 0, 0, 0.1) !important;
 }
 [data-testid="stSlider"] [data-testid="stSliderTrackFill"] {
   background: var(--cyan) !important;
@@ -1190,7 +1186,7 @@ label {
 /* Tabs */
 .stTabs [data-baseweb="tab-list"] {
   gap: 4px !important;
-  background: rgba(0, 0, 0, 0.25) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
   border-radius: 10px !important;
   padding: 3px !important;
   border: 1px solid var(--border) !important;
@@ -1322,7 +1318,7 @@ label {
 # ════════════════════════════════════════════════════════════════
 
 def inject_theme():
-    """Inject the premium dark medical CSS theme with background image."""
+    """Inject the premium white medical CSS theme with background image."""
     st.markdown(PREMIUM_THEME_CSS, unsafe_allow_html=True)
 
     # Inject background image as base64 so Streamlit doesn't need to serve it
@@ -1338,64 +1334,41 @@ def inject_theme():
                 z-index: -1;
                 pointer-events: none;
                 overflow: hidden;
-                background: #06121C;
+                background: #ffffff;
             ">
-              <!-- Glow behind brain -->
-              <div style="
-                position: absolute;
-                right: 5%; top: 10%;
-                width: 50%; height: 80%;
-                background: radial-gradient(circle, rgba(41,217,255,0.08) 0%, transparent 60%);
-                filter: blur(40px);
-              "></div>
-              <!-- Brain background image -->
+              <!-- Brain background image — very subtle on white theme -->
               <img
                 src="data:{mime};base64,{b64}"
                 style="
                   position: absolute;
                   right: -2%; top: -2%;
-                  width: 68%;
+                  width: 60%;
                   height: 104%;
                   object-fit: cover;
                   object-position: center left;
-                  opacity: 0.50;
-                  filter: blur(6px);
+                  opacity: 0.08;
+                  filter: grayscale(60%) contrast(0.8);
                 "
               />
-              <!-- Left dark vignette -->
+              <!-- White left vignette -->
               <div style="
                 position: absolute;
                 inset: 0;
                 background: linear-gradient(
                   105deg,
-                  #06121C 0%,
-                  #06121C 22%,
-                  rgba(6,18,28,0.92) 36%,
-                  rgba(6,18,28,0.55) 52%,
-                  rgba(6,18,28,0.18) 70%,
-                  rgba(6,18,28,0.04) 100%
+                  #ffffff 0%,
+                  #ffffff 35%,
+                  rgba(255,255,255,0.90) 52%,
+                  rgba(255,255,255,0.70) 70%,
+                  rgba(255,255,255,0.50) 100%
                 );
-              "></div>
-              <!-- Bottom fade -->
-              <div style="
-                position: absolute;
-                bottom: 0; left: 0; right: 0;
-                height: 200px;
-                background: linear-gradient(to top, #06121C 0%, transparent 100%);
-              "></div>
-              <!-- Top fade -->
-              <div style="
-                position: absolute;
-                top: 0; left: 0; right: 0;
-                height: 70px;
-                background: linear-gradient(to bottom, rgba(6,18,28,0.85) 0%, transparent 100%);
               "></div>
             </div>
 
             <style>
-            /* Root background — fallback colour */
+            /* Root background — white */
             html, body {{
-                background: #06121C !important;
+                background: #ffffff !important;
             }}
             /* Strip background from ALL Streamlit containers */
             html body .stApp,
@@ -1409,39 +1382,37 @@ def inject_theme():
                 background-color: transparent !important;
                 background-image: none !important;
             }}
-            /* Nav bar sits above everything */
+            /* Nav bar: solid white */
             .top-nav {{
                 position: relative !important;
                 z-index: 1001 !important;
-                background: rgba(6, 18, 28, 0.90) !important;
+                background: rgba(255, 255, 255, 0.97) !important;
                 backdrop-filter: blur(16px) !important;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+                box-shadow: 0 1px 8px rgba(0,0,0,0.07) !important;
             }}
-            /* Glass panels over the background - enhanced to pop out */
+            /* Glass panels: white with subtle shadow */
             .upload-panel,
             .fusion-ctrl-panel,
             .export-wrap,
             .empty-state-panel {{
-                background: rgba(6, 16, 26, 0.88) !important;
-                backdrop-filter: blur(18px) !important;
-                -webkit-backdrop-filter: blur(18px) !important;
+                background: rgba(255, 255, 255, 0.90) !important;
+                backdrop-filter: blur(12px) !important;
+                -webkit-backdrop-filter: blur(12px) !important;
+                box-shadow: 0 2px 16px rgba(0,0,0,0.06) !important;
                 position: relative !important;
                 z-index: 1 !important;
-                border: 1px solid rgba(41, 217, 255, 0.15) !important;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
             }}
             .metric-sci {{
-                background: rgba(6, 16, 26, 0.85) !important;
-                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.88) !important;
+                backdrop-filter: blur(8px) !important;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
                 position: relative !important;
                 z-index: 1 !important;
-                border: 1px solid rgba(255, 255, 255, 0.08) !important;
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
             }}
             [data-testid="stExpander"] {{
-                background: rgba(6, 16, 26, 0.85) !important;
-                backdrop-filter: blur(12px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                background: rgba(255, 255, 255, 0.88) !important;
+                backdrop-filter: blur(8px) !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
             }}
             </style>
             """,
@@ -1598,7 +1569,7 @@ def render_workspace_header():
     st.markdown(
         """
         <div class="workspace-header fade-in">
-          <div class="ws-badge">◈ Multimodal Imaging</div>
+          <div class="ws-badge">◈ MULTIMODAL IMAGING</div>
           <h1>Multimodal Brain Imaging</h1>
           <p class="ws-subtitle">
             PET + MRI image registration, fusion and visualization workspace
@@ -1619,6 +1590,111 @@ def render_workspace_header():
         """,
         unsafe_allow_html=True,
     )
+
+def render_workflow_steps(current_step=1):
+    """Render the horizontal workflow indicator."""
+    steps = [
+        {"num": "01", "label": "INPUT", "sub": "Upload Images"},
+        {"num": "02", "label": "REGISTRATION", "sub": "Align Modalities"},
+        {"num": "03", "label": "FUSION", "sub": "Merge Images"},
+        {"num": "04", "label": "ANALYSIS", "sub": "Quantitative Results"},
+    ]
+    html = '<div class="workflow-nav">'
+    for i, s in enumerate(steps):
+        status = "active" if current_step == i + 1 else ("done" if current_step > i + 1 else "pending")
+        html += f'''
+        <div class="wf-step {status}">
+            <div class="wf-num">{s["num"]}</div>
+            <div>
+                <div class="wf-label">{s["label"]}</div>
+                <div class="wf-sub">{s["sub"]}</div>
+            </div>
+        </div>
+        '''
+        if i < len(steps) - 1:
+            html += '<div class="wf-line"></div>'
+    html += '</div>'
+    st.markdown(html, unsafe_allow_html=True)
+
+def render_study_status_sidebar(mri_ready, pet_ready, reg_status, fusion_status, analysis_status, files_loaded):
+    """Render the right sidebar with study status and file summary."""
+    def _status_html(status):
+        if status == "READY" or status == "COMPLETED":
+            return '<span class="status-val ready">● READY</span>'
+        elif status == "PROCESSING":
+            return '<span class="status-val processing">⟳ PROCESSING</span>'
+        return '<span class="status-val pending">● PENDING</span>'
+        
+    html = f'''
+    <div class="sidebar-card">
+        <div class="sidebar-title">📈 STUDY STATUS</div>
+        <div class="status-row">
+            <div class="status-label"><span style="color:var(--mri);font-size:1.1rem;">🧠</span> MRI Image</div>
+            {_status_html("READY" if mri_ready else "PENDING")}
+        </div>
+        <div class="status-row">
+            <div class="status-label"><span style="color:var(--pet);font-size:1.1rem;">🧬</span> PET Image</div>
+            {_status_html("READY" if pet_ready else "PENDING")}
+        </div>
+        <div class="status-row">
+            <div class="status-label"><span style="color:var(--cyan);font-size:1.1rem;">⟳</span> Registration</div>
+            {_status_html(reg_status)}
+        </div>
+        <div class="status-row">
+            <div class="status-label"><span style="color:var(--violet);font-size:1.1rem;">❖</span> Fusion</div>
+            {_status_html(fusion_status)}
+        </div>
+        <div class="status-row">
+            <div class="status-label"><span style="color:var(--text-2);font-size:1.1rem;">📊</span> Analysis</div>
+            {_status_html(analysis_status)}
+        </div>
+    </div>
+    
+    <div class="sidebar-card">
+        <div class="sidebar-title" style="margin-bottom:0.5rem;">📁 FILES SUMMARY</div>
+        <div class="files-summary">
+            <div class="fs-num"><span class="hl">{files_loaded}</span> <span style="color:var(--text-3); font-weight:400;">/</span> <span style="color:var(--text-1);">2</span></div>
+            <div class="fs-text">Files Loaded</div>
+        </div>
+    </div>
+    '''
+    st.markdown(html, unsafe_allow_html=True)
+
+def render_feature_cards():
+    """Render the bottom feature cards."""
+    html = '''
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="fc-icon" style="color:var(--cyan);">⌖</div>
+            <div>
+                <div class="fc-title" style="color:var(--cyan);">Accurate Alignment</div>
+                <div class="fc-desc">Advanced registration algorithms for precise multimodal alignment</div>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="fc-icon" style="color:var(--pet);">⚄</div>
+            <div>
+                <div class="fc-title" style="color:var(--pet);">Image Fusion</div>
+                <div class="fc-desc">Combine functional and structural information seamlessly</div>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="fc-icon" style="color:var(--violet);">❖</div>
+            <div>
+                <div class="fc-title" style="color:var(--violet);">Rich Visualization</div>
+                <div class="fc-desc">Multi-planar view, overlays and 3D visualization tools</div>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="fc-icon" style="color:var(--green);">🎯</div>
+            <div>
+                <div class="fc-title" style="color:var(--green);">Quantitative Analysis</div>
+                <div class="fc-desc">Extract meaningful metrics for research insights</div>
+            </div>
+        </div>
+    </div>
+    '''
+    st.markdown(html, unsafe_allow_html=True)
 
 
 # ════════════════════════════════════════════════════════════════
