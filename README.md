@@ -1,6 +1,6 @@
 # 🧠 PET–MRI Brain Image Fusion
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.12-blue.svg)
 ![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)
 ![Medical Imaging](https://img.shields.io/badge/Medical_Imaging-NIfTI-brightgreen.svg)
 
