@@ -130,8 +130,8 @@ def validate_nifti(nib_img: nib.Nifti1Image) -> dict:
 
 from scipy.ndimage import zoom
 
-def downsample_if_needed(data, affine, max_dim=128):
-    """Downsample image if any dimension exceeds max_dim to save memory."""
+def downsample_if_needed(data, affine, max_dim=64):
+    """Downsample image if any dimension exceeds max_dim to save memory and CPU on Render."""
     shape = data.shape
     if any(s > max_dim for s in shape[:3]):
         factors = [min(1.0, max_dim / s) for s in shape[:3]]

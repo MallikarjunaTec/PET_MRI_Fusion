@@ -149,8 +149,8 @@ def register_pet_to_mri(
         # Optimizer
         registration.SetOptimizerAsGradientDescent(
             learningRate=1.0,
-            numberOfIterations=200,
-            convergenceMinimumValue=1e-6,
+            numberOfIterations=50,
+            convergenceMinimumValue=1e-5,
             convergenceWindowSize=10,
         )
         registration.SetOptimizerScalesFromPhysicalShift()
