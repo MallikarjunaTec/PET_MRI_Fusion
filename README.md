@@ -185,7 +185,7 @@ PET_MRI_Fusion/
 
 ## Installation
 
-**Prerequisites:** Python 3.12
+**Prerequisites:** Python 3.12.3
 
 ### Windows
 
