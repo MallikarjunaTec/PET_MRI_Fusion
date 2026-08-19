@@ -569,6 +569,16 @@
         body: JSON.stringify({ method: state.selectedMethod }),
       });
 
+      // Handle non-JSON responses (like 502 Bad Gateway or 504 Gateway Timeout HTML pages from Render)
+      const contentType = resp.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await resp.text();
+        hideProcessingOverlay();
+        showToast(`Server error (${resp.status}): The server may have run out of memory or timed out.`, 'error');
+        console.error('Non-JSON response:', text);
+        return;
+      }
+
       const data = await resp.json();
       if (!resp.ok) {
         hideProcessingOverlay();

@@ -128,6 +128,25 @@ def validate_nifti(nib_img: nib.Nifti1Image) -> dict:
     return result
 
 
+from scipy.ndimage import zoom
+
+def downsample_if_needed(data, affine, max_dim=128):
+    """Downsample image if any dimension exceeds max_dim to save memory."""
+    shape = data.shape
+    if any(s > max_dim for s in shape[:3]):
+        factors = [min(1.0, max_dim / s) for s in shape[:3]]
+        if len(shape) > 3:
+            factors += [1.0] * (len(shape) - 3)
+            
+        data = zoom(data, factors, order=1)
+        
+        new_affine = affine.copy()
+        for i in range(3):
+            new_affine[:3, i] /= factors[i]
+            
+        return data, new_affine
+    return data, affine
+
 # ============================================================
 # PREPROCESS PIPELINE
 # ============================================================
@@ -136,13 +155,17 @@ def preprocess_volume(nib_img: nib.Nifti1Image) -> tuple:
     """
     Preprocess a NIfTI volume:
       1. Load data as float32
-      2. Replace NaN/Inf with 0
-      3. Normalize to [0, 1]
+      2. Downsample large images to prevent OOM errors on Render
+      3. Replace NaN/Inf with 0
+      4. Normalize to [0, 1]
 
     Returns:
         (normalized_data, nib.Nifti1Image with normalized data)
     """
     data = nib_img.get_fdata(dtype=np.float32)
+
+    # Downsample to save memory (Render free tier has 512MB RAM)
+    data, new_affine = downsample_if_needed(data, nib_img.affine)
 
     # Clean invalid values
     data = np.nan_to_num(data, nan=0.0, posinf=0.0, neginf=0.0)
@@ -153,7 +176,7 @@ def preprocess_volume(nib_img: nib.Nifti1Image) -> tuple:
     # Create new NIfTI image with same affine/header
     normalized_img = nib.Nifti1Image(
         normalized,
-        nib_img.affine,
+        new_affine,
         nib_img.header
     )
 
